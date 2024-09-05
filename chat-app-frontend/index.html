@@ -1,4 +1,3 @@
-<!-- frontend/index.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,13 +8,23 @@
   </head>
   <body>
     <div class="container">
-      <ul id="messageList" class="list-group"></ul>
+      <!-- Login Form -->
+      <form id="loginForm" class="mb-3">
+        <input id="loginUsername" class="form-control mb-2" placeholder="Username" required />
+        <input id="loginPassword" type="password" class="form-control mb-2" placeholder="Password" required />
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+
+      <!-- Chat Interface -->
+      <ul id="messageList" class="list-group mb-3"></ul>
       <form id="messageForm">
-        <input id="messageInput" class="form-control" placeholder="Type a message..." />
-        <button type="submit" class="btn btn-primary mt-2">Send</button>
+        <input id="messageInput" class="form-control mb-2" placeholder="Type a message..." />
+        <button type="submit" class="btn btn-success">Send</button>
       </form>
     </div>
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
+
+
 
