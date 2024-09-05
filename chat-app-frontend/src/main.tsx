@@ -1,3 +1,7 @@
+// username:testuser
+// password: password123
+
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css'; // For custom styles
 import io from 'socket.io-client';
