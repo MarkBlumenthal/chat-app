@@ -76,3 +76,94 @@ socket.on('message', (message) => {
   messageList.appendChild(messageElement);
 });
 
+const registerForm = document.getElementById('registerForm') as HTMLFormElement;
+const registerUsername = document.getElementById('registerUsername') as HTMLInputElement;
+const registerPassword = document.getElementById('registerPassword') as HTMLInputElement;
+
+if (registerForm) {
+  registerForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const registrationData = {
+      username: registerUsername.value,
+      password: registerPassword.value,
+    };
+
+    const response = await fetch('http://localhost:4000/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(registrationData),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      alert('User registered successfully. Please log in.');
+      registerForm.reset(); // Clear the form
+    } else {
+      console.error('Registration failed:', result.error);
+    }
+  });
+}
+
+
+const logoutButton = document.getElementById('logoutButton') as HTMLButtonElement;
+
+if (logoutButton) {
+  logoutButton.addEventListener('click', () => {
+    token = ''; // Clear the token
+    localStorage.removeItem('jwtToken'); // Optionally remove the token from localStorage if you're storing it
+    location.reload(); // Reload the page to reset the UI
+  });
+}
+
+
+if (loginForm) {
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const loginData = {
+      username: loginUsername.value,
+      password: loginPassword.value,
+    };
+
+    const response = await fetch('http://localhost:4000/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(loginData),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      token = result.token; // Save JWT token
+      localStorage.setItem('jwtToken', token); // Optionally store it in localStorage
+      console.log('Logged in! Token:', token);
+
+      // Hide login and registration forms
+      loginForm.style.display = 'none';
+      registerForm.style.display = 'none';
+
+      // Show the logout button
+      logoutButton.style.display = 'block';
+    } else {
+      console.error('Login failed:', result.error);
+    }
+  });
+}
+
+
+window.addEventListener('load', () => {
+  const storedToken = localStorage.getItem('jwtToken');
+  
+  if (storedToken) {
+    token = storedToken;
+
+    // Hide login and registration forms
+    loginForm.style.display = 'none';
+    registerForm.style.display = 'none';
+
+    // Show logout button
+    logoutButton.style.display = 'block';
+  }
+});
