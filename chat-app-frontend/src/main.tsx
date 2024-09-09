@@ -3,12 +3,12 @@
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './style.css'; // For custom styles
+import './style.css'; 
 import { login, register, logout, checkIfLoggedIn } from './auth';
 import { setupMessageForm, displayReceivedMessage } from './chat';
 import { updateUIOnLogin, resetUIOnLogout } from './ui';
 
-// DOM Elements
+
 const messageForm = document.getElementById('messageForm') as HTMLFormElement;
 const messageInput = document.getElementById('messageInput') as HTMLInputElement;
 const messageList = document.getElementById('messageList') as HTMLElement;
@@ -66,5 +66,5 @@ window.addEventListener('load', () => {
       resetUIOnLogout(loginForm, registerForm, logoutButton);
     });
   }
-}); // <-- This closing brace was missing, close the event listener properly
+}); 
 
