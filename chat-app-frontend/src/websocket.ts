@@ -1,14 +1,20 @@
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
 
-// Create WebSocket connection
-export const socket = io('http://localhost:4000');
+// Get token from localStorage or session
+const token = localStorage.getItem('jwtToken');
 
-// Listen for incoming messages from the server
+// Establish WebSocket connection with token
+const socket = io('http://localhost:4000', {
+  auth: {
+    token: token,  // Pass the JWT token in the WebSocket connection
+  },
+});
+
+export function sendMessage(message: any) {
+  socket.emit('sendMessage', message);
+}
+
 export function onMessageReceived(callback: (message: any) => void) {
   socket.on('message', callback);
 }
 
-// Send a message to the server
-export function sendMessage(message: any) {
-  socket.emit('sendMessage', message);
-}
