@@ -1,3 +1,4 @@
+// chat-app-backend/websocket/socket.js
 const jwt = require('jsonwebtoken');
 const Message = require('../models/Message');
 

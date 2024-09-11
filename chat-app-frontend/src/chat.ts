@@ -1,3 +1,4 @@
+// chat-app-frontend/src/chat.ts
 import { sendMessage, onMessageReceived } from './websocket';
 
 // Fetch user conversations
@@ -43,6 +44,26 @@ export function handleIncomingMessages(messageList: HTMLElement) {
     messageElement.textContent = `${message.username}: ${message.text}`;
     messageList.appendChild(messageElement);
   });
+}
+
+
+// Start a new conversation or retrieve an existing one by username
+export async function startConversation(token: string, username: string) {
+  const response = await fetch('http://localhost:4000/conversations', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ username }),
+  });
+
+  if (response.ok) {
+    return response.json();  // Return the conversation object
+  } else {
+    const errorData = await response.json();
+    console.error('Error starting conversation:', errorData);
+  }
 }
 
 

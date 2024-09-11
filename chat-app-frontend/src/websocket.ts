@@ -1,3 +1,4 @@
+// chat-app-frontend/src/websockets.ts
 import { io } from 'socket.io-client';
 
 // Get token from localStorage or session

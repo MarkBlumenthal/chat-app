@@ -1,39 +1,31 @@
+// chat-app-backend/controllers/conversationController.js
 const Conversation = require('../models/Conversation');
 const User = require('../models/User');
 
-// Create or Get a conversation between two users
-exports.getOrCreateConversation = async (req, res) => {
-  const { user1Id, user2Id } = req.body;
+// Create or Get a conversation based on username
+exports.startConversation = async (req, res) => {
+  const { username } = req.body;  // Get the friend's username from the request
+  const userId = req.user.id;  // The logged-in user's ID
 
-  // Check if the conversation already exists
-  let conversation = await Conversation.findOne({
-    where: {
-      user1Id: [user1Id, user2Id],
-      user2Id: [user1Id, user2Id],
-    }
-  });
-
-  // If not, create a new conversation
-  if (!conversation) {
-    conversation = await Conversation.create({ user1Id, user2Id });
+  // Find the friend by username
+  const friend = await User.findOne({ where: { username } });
+  if (!friend) {
+    return res.status(404).json({ error: 'User not found' });
   }
 
-  res.json(conversation);
-};
-
-// Get all conversations for a user
-exports.getUserConversations = async (req, res) => {
-  const { userId } = req.params;
-  
-  const conversations = await Conversation.findAll({
+  // Check if a conversation already exists
+  let conversation = await Conversation.findOne({
     where: {
-      [sequelize.Op.or]: [
-        { user1Id: userId },
-        { user2Id: userId }
-      ]
+      user1Id: [userId, friend.id],
+      user2Id: [userId, friend.id],
     },
-    include: [{ model: User, as: 'user1' }, { model: User, as: 'user2' }]
   });
 
-  res.json(conversations);
+  // If no conversation exists, create a new one
+  if (!conversation) {
+    conversation = await Conversation.create({ user1Id: userId, user2Id: friend.id });
+  }
+
+  res.json(conversation);  // Return the conversation object
 };
+

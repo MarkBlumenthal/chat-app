@@ -1,3 +1,4 @@
+// chat-app-backend/models/Conversation.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db');
 const User = require('./User');

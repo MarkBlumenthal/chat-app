@@ -1,7 +1,10 @@
+// chat-app-backend/server.js
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
+const { startConversation } = require('./controllers/conversationController');
 require('dotenv').config();
+
 
 const sequelize = require('./db');  // Database connection
 const { register, login } = require('./controllers/authController');
@@ -39,6 +42,8 @@ process.on('unhandledRejection', (reason, promise) => {
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception thrown:', err);
 });
+
+app.post('/conversations', authenticateToken, startConversation);  // Protected route to start conversation
 
 // Start the server
 const PORT = process.env.PORT || 4000;

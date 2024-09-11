@@ -1,3 +1,4 @@
+// chat-app-frontend/src/auth.ts
 export function login(username: string, password: string, onSuccess: (token: string) => void, onError: (error: any) => void) {
   fetch('http://localhost:4000/login', {
     method: 'POST',

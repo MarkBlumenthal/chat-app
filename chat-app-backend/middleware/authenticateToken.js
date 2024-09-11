@@ -1,3 +1,4 @@
+// chat-app-backend/middleware/authenticateToken.js
 const jwt = require('jsonwebtoken');
 
 // Middleware to authenticate JWT in HTTP requests

@@ -1,4 +1,4 @@
-// backend/models/Message.js
+// chat-app-backend/models/Message.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db');
 const User = require('./User');

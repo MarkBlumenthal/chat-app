@@ -1,3 +1,4 @@
+// chat-app-frontend/src/ui.ts
 export function updateUIOnLogin(loginForm: HTMLElement, registerForm: HTMLElement, logoutButton: HTMLElement) {
   loginForm.style.display = 'none';
   registerForm.style.display = 'none';

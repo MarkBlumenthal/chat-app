@@ -1,3 +1,4 @@
+// chat-app-backend/db.js
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
