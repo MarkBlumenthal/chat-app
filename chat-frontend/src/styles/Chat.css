@@ -1,0 +1,18 @@
+/* chat-frontend/src/styles/chat.css */
+.chat-window {
+    border: 1px solid #ddd;
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+  }
+  
+  .bot {
+    color: blue;
+  }
+  
+  .user {
+    color: green;
+    text-align: right;
+  }
+  
